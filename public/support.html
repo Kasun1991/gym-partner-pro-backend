@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact Support</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 24px 16px 48px; color: #1a1a1a; line-height: 1.5; }
+    h1 { font-size: 1.5rem; margin-bottom: 6px; }
+    .subtitle { color: #555; margin-bottom: 28px; font-size: 0.95rem; }
+    label { display: block; font-weight: 500; margin-bottom: 4px; margin-top: 16px; font-size: 0.9rem; }
+    input, textarea { width: 100%; padding: 10px 12px; border: 1.5px solid #ccc; border-radius: 8px; font-size: 1rem; font-family: inherit; background: #fff; color: #1a1a1a; transition: border-color 0.15s; }
+    input:focus, textarea:focus { outline: none; border-color: #0066cc; }
+    textarea { min-height: 120px; resize: vertical; }
+    .honeypot { display: none; }
+    button { margin-top: 24px; width: 100%; padding: 13px; background: #0066cc; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.15s; }
+    button:hover { background: #0052a3; }
+    button:disabled { background: #aaa; cursor: not-allowed; }
+    .msg { margin-top: 16px; padding: 12px 14px; border-radius: 8px; font-size: 0.9rem; display: none; }
+    .msg.success { background: #e6f4ea; color: #1b5e20; border: 1px solid #a5d6a7; }
+    .msg.error { background: #fdecea; color: #b71c1c; border: 1px solid #ef9a9a; }
+    @media (prefers-color-scheme: dark) {
+      body { background: #121212; color: #e0e0e0; }
+      .subtitle { color: #aaa; }
+      input, textarea { background: #1e1e1e; color: #e0e0e0; border-color: #444; }
+      input:focus, textarea:focus { border-color: #7ab5ff; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Contact Support</h1>
+  <p class="subtitle">Having an issue? We'll get back to you as soon as possible.</p>
+
+  <form id="supportForm" novalidate>
+    <label for="name">Name <span style="color:#c00">*</span></label>
+    <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name">
+
+    <label for="email">Email <span style="color:#c00">*</span></label>
+    <input type="email" id="email" name="email" required autocomplete="email" placeholder="you@example.com">
+
+    <label for="subject">Subject <span style="color:#c00">*</span></label>
+    <input type="text" id="subject" name="subject" required placeholder="Brief description of the issue">
+
+    <label for="message">Message <span style="color:#c00">*</span></label>
+    <textarea id="message" name="message" required placeholder="Describe the issue in detail…"></textarea>
+
+    <!-- Honeypot -->
+    <input class="honeypot" type="text" name="website" tabindex="-1" autocomplete="off">
+
+    <button type="submit" id="submitBtn">Send Message</button>
+  </form>
+
+  <div class="msg success" id="successMsg">Thank you! Your message has been received. We'll reply to your email shortly.</div>
+  <div class="msg error" id="errorMsg">Something went wrong. Please try again or email us directly at <a href="mailto:kasungunathilaka1991@gmail.com">kasungunathilaka1991@gmail.com</a>.</div>
+
+  <script>
+    const WORKER_URL = 'WORKER_URL_PLACEHOLDER';
+
+    document.getElementById('supportForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      const successMsg = document.getElementById('successMsg');
+      const errorMsg = document.getElementById('errorMsg');
+
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      const honeypot = this.elements['website'].value;
+      if (honeypot) return;
+
+      const name = this.elements['name'].value.trim();
+      const email = this.elements['email'].value.trim();
+      const subject = this.elements['subject'].value.trim();
+      const message = this.elements['message'].value.trim();
+
+      if (!name || !email || !subject || !message) {
+        errorMsg.textContent = 'Please fill in all required fields.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res = await fetch(WORKER_URL + '/support', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, subject, message })
+        });
+        if (res.ok) {
+          this.reset();
+          successMsg.style.display = 'block';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch {
+        errorMsg.textContent = 'Something went wrong. Please try again or email us directly at kasungunathilaka1991@gmail.com.';
+        errorMsg.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  </script>
+</body>
+</html>
