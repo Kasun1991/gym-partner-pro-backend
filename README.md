@@ -6,10 +6,10 @@ Static backend for Gym Partner Pro Android app using GitHub Pages + Cloudflare W
 
 | URL | Purpose |
 |-----|---------|
-| `https://kasungunathilaka.github.io/gym-partner-pro-backend/terms.html` | Terms & Conditions |
-| `https://kasungunathilaka.github.io/gym-partner-pro-backend/privacy.html` | Privacy Policy |
-| `https://kasungunathilaka.github.io/gym-partner-pro-backend/support.html` | Support form |
-| `https://kasungunathilaka.github.io/gym-partner-pro-backend/feature-request.html` | Feature request form |
+| `https://kasun1991.github.io/gym-partner-pro-backend/terms.html` | Terms & Conditions |
+| `https://kasun1991.github.io/gym-partner-pro-backend/privacy.html` | Privacy Policy |
+| `https://kasun1991.github.io/gym-partner-pro-backend/support.html` | Support form |
+| `https://kasun1991.github.io/gym-partner-pro-backend/feature-request.html` | Feature request form |
 
 > **Runtime config and feature flags** are managed via Firebase Remote Config — not this repo.
 > See `FIREBASE_CONFIG.md` in the Android project.
@@ -55,7 +55,7 @@ cd worker
 npm install -g wrangler
 wrangler login
 wrangler secret put GITHUB_TOKEN      # fine-grained PAT with Issues: read+write
-wrangler secret put GITHUB_REPO_OWNER # kasungunathilaka
+wrangler secret put GITHUB_REPO_OWNER # Kasun1991
 wrangler secret put GITHUB_REPO_NAME  # gym-partner-pro-backend
 wrangler deploy
 ```
