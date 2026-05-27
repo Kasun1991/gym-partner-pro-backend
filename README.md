@@ -6,18 +6,20 @@ Static backend for Gym Partner Pro Android app using GitHub Pages + Cloudflare W
 
 | URL | Purpose |
 |-----|---------|
-| `https://kasungunathilaka.github.io/gym-partner-pro-backend/config.json` | App runtime config |
 | `https://kasungunathilaka.github.io/gym-partner-pro-backend/terms.html` | Terms & Conditions |
 | `https://kasungunathilaka.github.io/gym-partner-pro-backend/privacy.html` | Privacy Policy |
 | `https://kasungunathilaka.github.io/gym-partner-pro-backend/support.html` | Support form |
 | `https://kasungunathilaka.github.io/gym-partner-pro-backend/feature-request.html` | Feature request form |
+
+> **Runtime config and feature flags** are managed via Firebase Remote Config — not this repo.
+> See `FIREBASE_CONFIG.md` in the Android project.
 
 Worker URL: `https://gym-partner-backend.<account>.workers.dev` *(fill in after deploy)*
 
 ## Architecture
 
 ```
-GitHub Pages  ── config.json, terms.html, privacy.html
+GitHub Pages  ── terms.html, privacy.html
                   support.html, feature-request.html
                        │
                   form submit (fetch POST)
@@ -31,7 +33,7 @@ GitHub Issues tab ── your dashboard
 
 ## Dashboard Workflow
 
-### Update config / Terms / Privacy
+### Update Terms / Privacy
 1. Edit the file in `public/` via GitHub web UI or locally + push.
 2. GitHub Pages redeploys automatically in ~30 seconds.
 

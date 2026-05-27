@@ -1,9 +1,0 @@
-{
-  "version": 1,
-  "minSupportedAppVersion": "1.0.0",
-  "featureFlags": {
-    "enableSupportForm": true,
-    "enableFeatureRequestForm": true
-  },
-  "supportEmail": "kasungunathilaka1991@gmail.com"
-}
