@@ -2,3 +2,7 @@ name = "gym-partner-pro-backend"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
 compatibility_flags = ["nodejs_compat"]
+
+[vars]
+GITHUB_REPO_OWNER = "Kasun1991"
+GITHUB_REPO_NAME = "gym-partner-pro-backend"
