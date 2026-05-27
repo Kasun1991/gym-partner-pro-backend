@@ -12,9 +12,6 @@ Static backend for Gym Partner Pro Android app using GitHub Pages + Cloudflare W
 | `https://kasun1991.github.io/gym-partner-pro-backend/feature-request.html` | Feature request form |
 
 > **Runtime config and feature flags** are managed via Firebase Remote Config — not this repo.
-> See `FIREBASE_CONFIG.md` in the Android project.
-
-Worker URL: `https://gym-partner-backend.<account>.workers.dev` *(fill in after deploy)*
 
 ## Architecture
 
@@ -31,44 +28,9 @@ GitHub Issues API ── creates issue with labels
 GitHub Issues tab ── your dashboard
 ```
 
-## Dashboard Workflow
+## Docs
 
-### Update Terms / Privacy
-1. Edit the file in `public/` via GitHub web UI or locally + push.
-2. GitHub Pages redeploys automatically in ~30 seconds.
+See the [Wiki](../../wiki) for setup and operational guides:
 
-### View submissions
-1. Go to **Issues** tab in this repo.
-2. Filter by label: `support` or `feature-request`.
-3. Use `new` vs `triaged` to track triage status.
-
-### Respond to a submission
-1. Open the issue and comment with your reply.
-2. Optionally email the user using the address in the issue body.
-3. Apply `triaged` label, remove `new`.
-4. Close the issue when resolved.
-
-## Worker Setup
-
-```bash
-cd worker
-npm install -g wrangler
-wrangler login
-wrangler secret put GITHUB_TOKEN      # fine-grained PAT with Issues: read+write
-wrangler secret put GITHUB_REPO_OWNER # Kasun1991
-wrangler secret put GITHUB_REPO_NAME  # gym-partner-pro-backend
-wrangler deploy
-```
-
-After deploying, replace `WORKER_URL_PLACEHOLDER` in `public/support.html` and `public/feature-request.html` with the actual worker URL, then commit and push.
-
-## Labels to Create
-
-Go to **Issues → Labels** and create:
-
-| Label | Color |
-|-------|-------|
-| `support` | Blue `#0075ca` |
-| `feature-request` | Green `#008672` |
-| `new` | Yellow `#e4e669` |
-| `triaged` | Gray `#cfd3d7` |
+- [Worker Setup](../../wiki/Worker-Setup)
+- [Dashboard Workflow](../../wiki/Dashboard-Workflow)
